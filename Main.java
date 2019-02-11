@@ -29,6 +29,7 @@ class Main{
       System.out.println(ex.getMessage());
     }finally{
       scan.close();
+      uscan.close();
     }
     return state;
 
@@ -79,7 +80,7 @@ class Main{
       System.out.print("password: ");
       String pw = scan.next();
       try{
-        fw.write(name + ";" + pw);
+        fw.write(name + ";" + pw + "\n");
         return true;
       }catch(Exception ex){
         System.out.println("Error writing!");
