@@ -91,6 +91,7 @@ class Main{
         System.out.println("Error writing!");
         System.out.println(ex.getMessage());
       }finally{
+        scan.close();
       }
     }
 
