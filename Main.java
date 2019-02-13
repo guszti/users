@@ -5,9 +5,8 @@ class Main{
 
   static File users = new File("users.txt");
 
-  static Boolean log_in() throws IOException{
+  static Boolean log_in(){
 
-    Scanner scan = new Scanner(users);
     Scanner uscan = new Scanner(System.in);
     Boolean state = false;
 
@@ -17,6 +16,8 @@ class Main{
     String pw = uscan.next();
 
     try{
+      Scanner scan = new Scanner(users);
+
       while(scan.hasNextLine()){
         String[] line = scan.nextLine().split(";");
         if(line[0].equals(name) && line[1].equals(pw)){
@@ -24,11 +25,11 @@ class Main{
           state = true;
         }
       }
+      scan.close();
     }catch(Exception ex){
       System.out.println("Error writing!");
       System.out.println(ex.getMessage());
     }finally{
-      scan.close();
       uscan.close();
     }
     return state;
@@ -48,30 +49,30 @@ class Main{
 
   }
 
-  static Boolean check(String name) throws IOException{
+  static Boolean check(String name){
 
-    Scanner scan = new Scanner(users);
     Boolean state = false;
 
     try{
+      Scanner scan = new Scanner(users);
+
       while(scan.hasNextLine()){
         if(scan.nextLine().split(";")[0].equals(name)){
           state = true;
         }
       }
+      scan.close();
     }catch(Exception ex){
       System.out.println("Error writing!");
       System.out.println(ex.getMessage());
-    }finally{
-      scan.close();
     }
+
     return state;
 
   }
 
-  static Boolean register() throws IOException{
+  static Boolean register(){
 
-    FileWriter fw = new FileWriter(users, true);
     Scanner scan = new Scanner(System.in);
 
     System.out.print("username: ");
@@ -80,13 +81,16 @@ class Main{
       System.out.print("password: ");
       String pw = scan.next();
       try{
+        FileWriter fw = new FileWriter(users, true);
+
         fw.write(name + ";" + pw + "\n");
+        fw.close();
+
         return true;
       }catch(Exception ex){
         System.out.println("Error writing!");
         System.out.println(ex.getMessage());
       }finally{
-        fw.close();
       }
     }
 
@@ -94,7 +98,7 @@ class Main{
 
   }
 
-  public static void main(String[] args) throws IOException{
+  public static void main(String[] args){
 
     Scanner scan = new Scanner(System.in);
     Boolean running = true;
